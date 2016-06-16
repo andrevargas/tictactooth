@@ -16,7 +16,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="#000000"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="40dp"
         android:id="@+id/frameLayout">
 
         <Button
@@ -24,63 +24,88 @@
             android:layout_height="105dp"
             android:id="@+id/A1"
             android:layout_gravity="left|top"
-            android:background="#FFFFFF" />
+            android:background="#eeeeee" />
 
         <Button
             android:layout_width="105dp"
             android:layout_height="105dp"
             android:id="@+id/A2"
             android:layout_gravity="center_horizontal|top"
-            android:background="#FFFFFF" />
+            android:background="#eeeeee" />
 
         <Button
             android:layout_width="105dp"
             android:layout_height="105dp"
             android:id="@+id/A3"
             android:layout_gravity="right|top"
-            android:background="#FFFFFF" />
+            android:background="#eeeeee" />
 
         <Button
             android:layout_width="105dp"
             android:layout_height="105dp"
             android:id="@+id/B1"
             android:layout_gravity="center_vertical|left"
-            android:background="#FFFFFF" />
+            android:background="#eeeeee" />
 
         <Button
             android:layout_width="105dp"
             android:layout_height="105dp"
             android:id="@+id/B2"
             android:layout_gravity="center"
-            android:background="#FFFFFF" />
+            android:background="#eeeeee" />
 
         <Button
             android:layout_width="105dp"
             android:layout_height="105dp"
             android:id="@+id/B3"
             android:layout_gravity="right|center_vertical"
-            android:background="#FFFFFF" />
+            android:background="#eeeeee" />
 
         <Button
             android:layout_width="105dp"
             android:layout_height="105dp"
             android:id="@+id/C1"
             android:layout_gravity="left|bottom"
-            android:background="#FFFFFF" />
+            android:background="#eeeeee" />
 
         <Button
             android:layout_width="105dp"
             android:layout_height="105dp"
             android:id="@+id/C2"
             android:layout_gravity="center_horizontal|bottom"
-            android:background="#FFFFFF" />
+            android:background="#eeeeee" />
 
         <Button
             android:layout_width="105dp"
             android:layout_height="105dp"
             android:id="@+id/C3"
             android:layout_gravity="right|bottom"
-            android:background="#FFFFFF" />
+            android:background="#eeeeee" />
     </FrameLayout>
+
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:text="Enviar"
+        android:id="@+id/sendButton"
+        android:background="@color/accent_material_light"
+        android:textColor="#ffffff"
+        android:textSize="17dp"
+        android:layout_below="@+id/frameLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp" />
+
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:text="Cancelar"
+        android:id="@+id/cancelButton"
+        android:background="@android:color/holo_red_light"
+        android:textSize="17dp"
+        android:layout_alignTop="@+id/sendButton"
+        android:layout_alignRight="@+id/frameLayout"
+        android:layout_alignEnd="@+id/frameLayout"
+        android:textColor="#ffffff" />
 
 </RelativeLayout>
