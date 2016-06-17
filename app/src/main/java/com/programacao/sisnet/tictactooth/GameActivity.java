@@ -1,24 +1,33 @@
 package com.programacao.sisnet.tictactooth;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button a1, a2, a3, b1, b2, b3, c1, c2, c3;
     Button[] bArray;
     boolean turn = false;
+    TextView labelName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_game);
+
+        labelName = (TextView) findViewById(R.id.labelName);
+
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("name");
+        labelName.setText(name);
 
         a1 = (Button) findViewById(R.id.A1);
         a2 = (Button) findViewById(R.id.A2);
@@ -66,7 +75,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private  void toast(String message){
+    private void toast(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        toast("Você não pode voltar!");
     }
 }
