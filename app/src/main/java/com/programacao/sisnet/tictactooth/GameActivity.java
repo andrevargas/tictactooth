@@ -48,11 +48,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
+
         Button b = (Button) v;
 
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "CODE Bold.otf");
+        buttonClicked(b);
+    }
+
+    public void buttonClicked(Button b) {
 
         if (turn) {
             b.setTextSize(60);
@@ -65,14 +68,62 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             b.setText("O");
         }
 
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "CODE Bold.otf");
         b.setTypeface(typeface);
+
+        //Desabilita o botão após ser clicado
+        b.setClickable(false);
 
         turn = !turn;
 
-        b.setClickable(false);
         b.setBackgroundColor(Color.rgb(222, 222, 222));
-        toast("Clicked");
 
+        CheckForWinner();
+
+    }
+
+    private void CheckForWinner() {
+
+        boolean bVencedor = false;
+
+        if(a1.getText().equals(a2.getText()) && a2.getText().equals(a3.getText()) && !a1.isClickable())
+            bVencedor = true;
+        else if(b1.getText().equals(b2.getText())&& b2.getText().equals(c3.getText())&& !b1.isClickable())
+            bVencedor = true;
+        else if(c1.getText().equals(c2.getText())&& c2.getText().equals(c3.getText())&& !c1.isClickable())
+            bVencedor = true;
+        else if(a1.getText().equals(b1.getText()) && b1.getText().equals(c1.getText())&& !a1.isClickable())
+            bVencedor = true;
+        else if(a2.getText().equals(b2.getText()) && b2.getText().equals(c2.getText()) && !a2.isClickable())
+            bVencedor = true;
+        else if(a3.getText().equals(b3.getText()) && b3.getText().equals(c3.getText()) && !a3.isClickable())
+            bVencedor = true;
+        else if(a1.getText().equals(b2.getText()) && b2.getText().equals(c3.getText()) && !a1.isClickable())
+            bVencedor = true;
+        else if(a3.getText().equals(b2.getText()) && b2.getText().equals(c1.getText()) && !a3.isClickable())
+            bVencedor = true;
+
+        if(bVencedor){
+            if(turn){
+                toast("O Wins");
+            }else{
+                toast("X Wins");
+            }
+
+            enableDisableAllButtons(false);
+        }
+    }
+
+    private void enableDisableAllButtons(boolean enable) {
+        for (Button b: bArray){
+            b.setClickable(enable);
+
+            if(enable)
+                b.setBackgroundColor(Color.parseColor("#33b5e5"));
+            else {
+                b.setBackgroundColor(Color.LTGRAY);
+            }
+        }
     }
 
     private void toast(String message){
