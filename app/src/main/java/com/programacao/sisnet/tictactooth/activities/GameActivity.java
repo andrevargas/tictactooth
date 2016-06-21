@@ -1,4 +1,4 @@
-package com.programacao.sisnet.tictactooth;
+package com.programacao.sisnet.tictactooth.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.programacao.sisnet.tictactooth.R;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
