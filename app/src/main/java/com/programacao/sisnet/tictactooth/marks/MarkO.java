@@ -1,7 +1,16 @@
 package com.programacao.sisnet.tictactooth.marks;
 
-/**
- * Created by andre on 6/21/16.
- */
-public class MarkO {
+
+import android.graphics.Color;
+import android.widget.Button;
+
+public class MarkO implements Mark {
+
+    @Override
+    public Button draw(Button button) {
+        button.setTextColor(Color.rgb(22, 151, 215));
+        button.setTextSize(60);
+        button.setText("O");
+        return button;
+    }
 }

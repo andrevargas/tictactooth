@@ -1,13 +1,9 @@
 package com.programacao.sisnet.tictactooth.marks;
 
 
-import android.graphics.Color;
-import android.graphics.Typeface;
+import android.widget.Button;
 
-public class Mark
+public interface Mark
 {
-    private Color textColor;
-    private int textSize;
-    private Typeface typeface;
-
+    Button draw(Button button);
 }
