@@ -15,13 +15,10 @@ public class Square
         this.button = button;
     }
 
-    public void clickAction(String turn) {
-
+    public boolean clickAction(String turn) {
         Mark mark = MarkFactory.createMark(turn);
-        mark.draw(this.button);
-
-        //GameValidation.checkForWinner();
-
+        mark.draw(button);
+        return Game.checkForWinner();
     }
 
 }
