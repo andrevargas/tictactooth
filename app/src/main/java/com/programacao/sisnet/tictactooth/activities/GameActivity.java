@@ -1,7 +1,6 @@
 package com.programacao.sisnet.tictactooth.activities;
 
 
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.programacao.sisnet.tictactooth.R;
+import com.programacao.sisnet.tictactooth.Biblioteca.Utils.eTipoFinalGame;
 import com.programacao.sisnet.tictactooth.domain.Game;
 import com.programacao.sisnet.tictactooth.domain.Square;
 
@@ -51,10 +51,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         Button button = (Button) view;
         Square square = new Square(button);
 
-        boolean result = square.clickAction(game.getTurn());
+        eTipoFinalGame result = square.clickAction(game.getTurn());
 
-        if (result) {
+        if (result == eTipoFinalGame.vencedor) {
             toast("Vitória de \"" + game.getTurn() + "\"");
+            game.disableAll();
+        }
+        else if (result == eTipoFinalGame.empate)
+        {
+            toast("Empate");
             game.disableAll();
         }
 
