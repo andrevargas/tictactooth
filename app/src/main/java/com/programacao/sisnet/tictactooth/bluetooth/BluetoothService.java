@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
-import java.util.logging.Handler;
 
 public class BluetoothService {
 
@@ -21,8 +20,7 @@ public class BluetoothService {
     private static final UUID UUID_SECURE = UUID.fromString("b4a2bde0-3be6-11e6-bdf4-0800200c9a66");
     private static final UUID UUID_INSECURE = UUID.fromString("c21d3630-3be6-11e6-bdf4-0800200c9a66");
 
-    private final BluetoothAdapter bluetoothAdapter;
-    private final Handler handler;
+    private final BluetoothAdapter bluetoothAdapter;;
     private AcceptThread secureAcceptThread;
     private AcceptThread insecureAcceptThread;
     private ConnectThread connectThread;
@@ -34,10 +32,9 @@ public class BluetoothService {
     public static final int STATE_CONNECTING = 2;
     public static final int STATE_CONNECTED = 3;
 
-    public BluetoothService(Context context, Handler handler) {
+    public BluetoothService(Context context) {
         this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         this.state = STATE_NONE;
-        this.handler = handler;
     }
 
     public synchronized void setState(int state)

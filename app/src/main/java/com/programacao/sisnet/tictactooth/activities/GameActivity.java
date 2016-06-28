@@ -1,7 +1,9 @@
 package com.programacao.sisnet.tictactooth.activities;
 
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,20 +11,36 @@ import android.widget.Toast;
 
 import com.programacao.sisnet.tictactooth.R;
 import com.programacao.sisnet.tictactooth.Biblioteca.Utils.eTipoFinalGame;
+import com.programacao.sisnet.tictactooth.bluetooth.BluetoothService;
 import com.programacao.sisnet.tictactooth.domain.Game;
 import com.programacao.sisnet.tictactooth.domain.Square;
 
-public class GameActivity extends AppCompatActivity implements View.OnClickListener {
+public class GameActivity extends Activity implements View.OnClickListener {
 
-    Button a1, a2, a3, b1, b2, b3, c1, c2, c3;
-    Button[] buttons;
-    Game game;
+    private Button a1, a2, a3, b1, b2, b3, c1, c2, c3;
+    private Button[] buttons;
+    private Game game;
+    private String gameParameters;
+
+    private static final int REQUEST_ENABLE_BT = 1;
+
+    private BluetoothAdapter bluetoothAdapter;
+    private BluetoothService bluetoothService;
+    private String connectedDeviceName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        if (bluetoothAdapter == null) {
+            toast("O Bluetooth não está disponível!");
+            finish();
+        }
 
         a1 = (Button) findViewById(R.id.A1);
         a2 = (Button) findViewById(R.id.A2);
@@ -71,8 +89,37 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        if (!bluetoothAdapter.isEnabled()) {
+            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+        }
+        else if (bluetoothService == null) {
+            setupService();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_ENABLE_BT:
+                if (resultCode == Activity.RESULT_OK) {
+                    setupService();
+                    toast("enois");
+                }
+            break;
+        }
+    }
+
+    public void setupService() {
+        bluetoothService = new BluetoothService(this);
+    }
+
+    @Override
     public void onBackPressed()
     {
         toast("Você não pode voltar!");
     }
+
 }
