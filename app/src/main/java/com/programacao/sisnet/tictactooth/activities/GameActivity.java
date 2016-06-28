@@ -72,8 +72,8 @@ public class GameActivity extends Activity implements View.OnClickListener {
     public void onStart()
     {
         super.onStart();
-        connectDevice(getIntent());
         setupService();
+        connectDevice(getIntent());
     }
 
     @Override
@@ -116,7 +116,7 @@ public class GameActivity extends Activity implements View.OnClickListener {
 
     public void connectDevice(Intent data)
     {
-        String address = data.getExtras().getString(StartActivity.EXTRA_DEVICE_ADDRESS);
+        String address = data.getExtras().getString("device_name");
         BluetoothDevice device = bluetoothAdapter.getRemoteDevice(address);
         bluetoothService.connect(device, true);
     }

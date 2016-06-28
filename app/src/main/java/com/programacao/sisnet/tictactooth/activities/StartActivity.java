@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.programacao.sisnet.tictactooth.R;
+import com.programacao.sisnet.tictactooth.bluetooth.BluetoothService;
 
 import java.util.Set;
 
@@ -22,8 +23,9 @@ public class StartActivity extends Activity implements View.OnClickListener {
     private static final int REQUEST_ENABLE_BT = 1;
 
     private BluetoothAdapter bluetoothAdapter;
+    private BluetoothService bluetoothService;
 
-    public static String EXTRA_DEVICE_ADDRESS = "device_name";
+    private Intent gameActivity;
 
     private Button startButton;
 
@@ -33,6 +35,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+        gameActivity = new Intent(getApplicationContext(), GameActivity.class);
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         if (bluetoothAdapter == null) {
@@ -64,14 +67,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Intent gameActivity = new Intent(getApplicationContext(), GameActivity.class);
-        if (!gameActivity.getStringExtra(EXTRA_DEVICE_ADDRESS).isEmpty()) {
-            startActivity(gameActivity);
-        }
-        else {
-            Toast.makeText(getApplicationContext(), "Selecione um dispositivo!", Toast.LENGTH_SHORT).show();
-        }
-
+        startActivity(gameActivity);
     }
 
     @Override
@@ -102,8 +98,10 @@ public class StartActivity extends Activity implements View.OnClickListener {
             String info = ((TextView) view).getText().toString();
             String address = info.substring(info.length() - 17, info.length());
 
-            Intent gameActivity = new Intent(getApplicationContext(), GameActivity.class);
-            gameActivity.putExtra(EXTRA_DEVICE_ADDRESS, address);
+            Bundle bundle = new Bundle();
+            bundle.putString("device_name", address);
+
+            gameActivity.putExtras(bundle);
         }
     };
 }
