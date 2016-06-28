@@ -65,7 +65,6 @@ public class StartActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent gameActivity = new Intent(getApplicationContext(), GameActivity.class);
-
         if (!gameActivity.getStringExtra(EXTRA_DEVICE_ADDRESS).isEmpty()) {
             startActivity(gameActivity);
         }
@@ -101,11 +100,10 @@ public class StartActivity extends Activity implements View.OnClickListener {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id)
         {
             String info = ((TextView) view).getText().toString();
-            String address = info.substring(info.length(), -17);
+            String address = info.substring(info.length() - 17, info.length());
 
             Intent gameActivity = new Intent(getApplicationContext(), GameActivity.class);
             gameActivity.putExtra(EXTRA_DEVICE_ADDRESS, address);
-
         }
     };
 }
