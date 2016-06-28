@@ -20,13 +20,9 @@ public class GameActivity extends Activity implements View.OnClickListener {
     private Button a1, a2, a3, b1, b2, b3, c1, c2, c3;
     private Button[] buttons;
     private Game game;
-    private String gameParameters;
 
-    private static final int REQUEST_ENABLE_BT = 1;
-
-    private BluetoothAdapter bluetoothAdapter;
     private BluetoothService bluetoothService;
-    private String connectedDeviceName;
+    private String gameParameters;
 
 
     @Override
@@ -34,13 +30,6 @@ public class GameActivity extends Activity implements View.OnClickListener {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
-        if (bluetoothAdapter == null) {
-            toast("O Bluetooth não está disponível!");
-            finish();
-        }
 
         a1 = (Button) findViewById(R.id.A1);
         a2 = (Button) findViewById(R.id.A2);
@@ -86,30 +75,6 @@ public class GameActivity extends Activity implements View.OnClickListener {
 
     private void toast(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (!bluetoothAdapter.isEnabled()) {
-            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
-        }
-        else if (bluetoothService == null) {
-            setupService();
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case REQUEST_ENABLE_BT:
-                if (resultCode == Activity.RESULT_OK) {
-                    setupService();
-                    toast("enois");
-                }
-            break;
-        }
     }
 
     public void setupService() {
