@@ -6,6 +6,9 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.os.Handler;
+
+import com.programacao.sisnet.tictactooth.activities.GameActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,7 +23,8 @@ public class BluetoothService {
     private static final UUID UUID_SECURE = UUID.fromString("b4a2bde0-3be6-11e6-bdf4-0800200c9a66");
     private static final UUID UUID_INSECURE = UUID.fromString("c21d3630-3be6-11e6-bdf4-0800200c9a66");
 
-    private final BluetoothAdapter bluetoothAdapter;;
+    private final BluetoothAdapter bluetoothAdapter;
+    private final Handler handler;
     private AcceptThread secureAcceptThread;
     private AcceptThread insecureAcceptThread;
     private ConnectThread connectThread;
@@ -32,9 +36,10 @@ public class BluetoothService {
     public static final int STATE_CONNECTING = 2;
     public static final int STATE_CONNECTED = 3;
 
-    public BluetoothService(Context context) {
+    public BluetoothService(Context context, Handler handler) {
         this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         this.state = STATE_NONE;
+        this.handler = handler;
     }
 
     public synchronized void setState(int state)
@@ -330,6 +335,7 @@ public class BluetoothService {
             while (state == STATE_CONNECTED) {
                 try {
                     bytes = input.read(buffer);
+                    handler.obtainMessage(1, bytes, -1, buffer).sendToTarget();
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                     e.printStackTrace();
