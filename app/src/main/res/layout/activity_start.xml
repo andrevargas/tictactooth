@@ -11,18 +11,17 @@
 
     <Button
         android:layout_width="300dp"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:text="@string/start"
         android:id="@+id/start"
         android:textSize="20sp"
         android:background="@android:color/holo_blue_dark"
         android:textColor="#ffffff"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/inputName"
-        android:layout_alignStart="@+id/inputName"
-        android:layout_marginBottom="176dp" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="170dp" />
 
-    <EditText
+    EditText
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:inputType="textPersonName"

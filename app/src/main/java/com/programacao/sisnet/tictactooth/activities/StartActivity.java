@@ -14,15 +14,12 @@ import com.programacao.sisnet.tictactooth.activities.GameActivity;
 public class StartActivity extends Activity implements View.OnClickListener {
 
     Button startButton;
-    EditText inputName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-
-        inputName = (EditText) findViewById(R.id.inputName);
 
         startButton = (Button) findViewById(R.id.start);
         startButton.setOnClickListener(this);
@@ -32,10 +29,6 @@ public class StartActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent gameActivity = new Intent(getApplicationContext(), GameActivity.class);
-
-        gameActivity.putExtra("name", inputName.getText().toString());
-        Log.e("n", inputName.getText().toString());
-
         startActivity(gameActivity);
     }
 }
